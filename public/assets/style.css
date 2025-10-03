@@ -1,0 +1,101 @@
+/* ====== Tema Quiosque (Glass + Cards) ====== */
+:root{
+    --bg: #0f172a;               /* fundo (azul noite) */
+    --bg-soft: #111827;
+    --text: #e5e7eb;             /* texto principal */
+    --muted: #94a3b8;            /* texto secundário */
+    --primary: #22d3ee;          /* ciano */
+    --primary-strong: #06b6d4;
+    --ok: #34d399;               /* verde */
+    --warn: #f59e0b;             /* laranja */
+    --danger: #ef4444;           /* vermelho */
+    --card: rgba(255,255,255,0.06);
+    --card-border: rgba(255,255,255,0.15);
+    --blur: blur(10px);
+    --radius: 14px;
+    --shadow: 0 10px 25px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+    --focus: 0 0 0 3px rgba(34,211,238,.35);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+    margin:0; font: 15px/1.45 "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--text); background:
+        radial-gradient(1200px 800px at 10% -10%, #0ea5e9 0%, transparent 50%),
+        radial-gradient(1000px 700px at 90% 10%, #a78bfa 0%, transparent 50%),
+        var(--bg);
+}
+
+/* ====== Layout ====== */
+.container{max-width:1100px;margin:0 auto;padding:32px}
+.header{
+    position:sticky; top:0; z-index:10;
+    background: linear-gradient(180deg, rgba(15,23,42,.85), rgba(15,23,42,.65));
+    backdrop-filter: var(--blur);
+    border-bottom: 1px solid var(--card-border);
+}
+.header-inner{display:flex;align-items:center;gap:14px;padding:16px 20px}
+.logo{
+    width:36px;height:36px;border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, #22d3ee, #0ea5e9 60%, #2563eb);
+    box-shadow: 0 6px 16px rgba(14,165,233,.45);
+}
+.brand{font-weight:700;letter-spacing:.3px}
+
+/* ====== Cards / Forms ====== */
+.card{
+    background: var(--card);
+    backdrop-filter: var(--blur);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+main.grid{display:grid;gap:18px;padding:28px}
+.grid.cols-2{grid-template-columns: repeat(2, minmax(0,1fr))}
+@media (max-width:900px){ .grid.cols-2{grid-template-columns: 1fr} }
+
+.card.pad{padding:22px}
+.card-title{font-weight:700;font-size:18px;margin:0 0 10px}
+.card-sub{color:var(--muted);margin:0 0 16px}
+
+/* ====== Links / Buttons ====== */
+a.btn, button.btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:12px 18px;border-radius:10px;text-decoration:none;border:1px solid transparent;
+    font-weight:600; transition:.18s ease-in-out; cursor:pointer;
+}
+.btn-primary{background:linear-gradient(180deg, var(--primary), var(--primary-strong)); color:#06202A}
+.btn-primary:hover{filter:saturate(1.1) brightness(1.05); transform: translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--text);border-color:var(--card-border)}
+.btn-ghost:hover{background:rgba(255,255,255,.06)}
+.btn-ok{background:linear-gradient(180deg,var(--ok),#10b981); color:#05291F}
+.btn-warn{background:linear-gradient(180deg,var(--warn),#d97706); color:#2a1600}
+
+/* ====== Inputs ====== */
+input, select{
+    width:100%; padding:12px 12px; border-radius:10px;
+    border:1px solid var(--card-border); background:rgba(255,255,255,.04);
+    color:var(--text); outline:none; transition:.15s;
+}
+input::placeholder{color:#9aa7b3}
+input:focus, select:focus{box-shadow: var(--focus); border-color: var(--primary)}
+
+/* ====== Tables ====== */
+.table{
+    width:100%; border-collapse:collapse; overflow:hidden;
+    border-radius: var(--radius); background: var(--card); backdrop-filter: var(--blur);
+    border:1px solid var(--card-border); box-shadow: var(--shadow);
+}
+.table th, .table td{padding:12px;border-bottom:1px solid var(--card-border);text-align:center}
+.table th{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,0)); color:#eaf6ff}
+.table tr:hover td{background:rgba(255,255,255,.04)}
+.table .subtotal td{font-weight:700;background:rgba(255,255,255,.05)}
+
+/* ====== Helpers ====== */
+.center{text-align:center}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:12px}
+@media (max-width:600px){ .row{flex-direction:column} }
+.mtop{margin-top:14px}
