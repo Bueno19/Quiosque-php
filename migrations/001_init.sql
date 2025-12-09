@@ -1,5 +1,6 @@
 USE quiosque;
 
+-- Tabela clientes
 CREATE TABLE IF NOT EXISTS clientes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(255) NOT NULL,
@@ -8,6 +9,7 @@ CREATE TABLE IF NOT EXISTS clientes (
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Tabela produtos
 CREATE TABLE IF NOT EXISTS produtos (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(255) NOT NULL,
@@ -17,6 +19,7 @@ CREATE TABLE IF NOT EXISTS produtos (
   INDEX (nome)
 );
 
+-- Tabela pedidos
 CREATE TABLE IF NOT EXISTS pedidos (
   id INT AUTO_INCREMENT PRIMARY KEY,
   cliente_id INT NOT NULL,
@@ -26,6 +29,7 @@ CREATE TABLE IF NOT EXISTS pedidos (
     ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
+-- Tabela pedido_itens
 CREATE TABLE IF NOT EXISTS pedido_itens (
   id INT AUTO_INCREMENT PRIMARY KEY,
   pedido_id INT NOT NULL,
@@ -50,3 +54,27 @@ INSERT INTO produtos (nome, preco, estoque) VALUES
 ('Suco Detox', 12.50, 30),
 ('Sanduíche Natural', 16.00, 20)
 ON DUPLICATE KEY UPDATE preco = VALUES(preco), estoque = VALUES(estoque);
+
+-- ===== Atualização da Tabela de Produtos =====
+
+ALTER TABLE produtos
+ADD COLUMN descricao TEXT NULL AFTER estoque,
+ADD COLUMN categoria VARCHAR(100) NULL AFTER descricao,
+ADD COLUMN imagem VARCHAR(255) NULL AFTER categoria,
+ADD COLUMN ativo TINYINT(1) NOT NULL DEFAULT 1 AFTER imagem,
+ADD COLUMN atualizado_em TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP AFTER criado_em;
+
+CREATE TABLE IF NOT EXISTS produtos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    estoque INT NOT NULL,
+    descricao TEXT NULL,
+    categoria VARCHAR(50) NULL,
+    marca VARCHAR(50) NULL,
+    codigo_barras VARCHAR(50) NULL,
+    ativo TINYINT(1) DEFAULT 1,
+    imagem VARCHAR(255) NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
